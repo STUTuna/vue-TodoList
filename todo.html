@@ -28,13 +28,13 @@
         </div>
         <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">
-                <a class="nav-link active" href="#">全部</a>
+                <a class="nav-link" :class="{'active': visibility == '全部'}" href="#" @click="visibility='全部'">全部</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">進行中</a>
+                <a class="nav-link" :class="{'active': visibility == '進行中'}" href="#" @click="visibility='進行中'">進行中</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">已完成</a>
+                <a class="nav-link" :class="{'active': visibility == '已完成'}" href="#" @click="visibility='已完成'">已完成</a>
             </li>
         </ul>
         <ul class="list-group">
@@ -56,6 +56,7 @@
                     text: '我4鮪魚',
                     age: 18,
                     num: 0,
+                    visibility:'全部',
                     person
                 }
             },
