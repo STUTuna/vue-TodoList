@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ text }}
+        {{ age }}
+        {{ num }}
+        <input type="number" v-model="num">
+        <hr>
+        {{ person.name }}
+        <img :src="person.image" alt="tuna">
+    </div>
+    <script>
+        const person = {
+            name:'小明',
+            image:'https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/10/616828-Tuna-vs.-Salmon-Is-One-Healthier-1296x728-header_body.jpg?w=115&h=150',
+        };
+
+        const app = Vue.createApp({
+            data() {  // 資料邏輯
+                return {
+                    text: '我4鮪魚',
+                    age: 18,
+                    num: 0,
+                    person
+                }
+            },
+            methods: {  // methods方法
+
+            },
+            mounted() {  // 生命週期
+
+            },
+        });
+        app.mount('#app');
+
+    </script>
+
+</body>
+</html>
