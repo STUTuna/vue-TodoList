@@ -38,8 +38,32 @@
             </li>
         </ul>
         <ul class="list-group">
-            <li class="list-group-item" v-for="item in items">
-                {{ item }}
+            <li class="list-group-item" v-for="item in items" v-if="visibility === '全部'">
+                <div>
+                    修改
+                    <div @click="switchActive(item)">
+                        <input type="checkbox" :checked="item.checked === true">
+                        {{ item.title }}
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item" v-for="item in items" v-if="visibility === '進行中'">
+                <div v-if="item.checked === false">
+                    修改
+                    <div @click="switchActive(item)">
+                        <input type="checkbox" :checked="item.checked === true">
+                        {{ item.title }}
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item" v-for="item in items" v-if="visibility === '已完成'">
+                <div v-if="item.checked === true">
+                    修改
+                    <div @click="switchActive(item)">
+                        <input type="checkbox" :checked="item.checked === true">
+                        {{ item.title }}
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -53,7 +77,16 @@
         const app = Vue.createApp({
             data() {  // 資料邏輯
                 return {
-                    items:['An item','A second item999'],
+                    items:[
+                        {
+                            title:'A first item',
+                            checked: true
+                        },
+                        {
+                            title:'A second item',
+                            checked:false
+                        },
+                    ],
                     add_task_item,
                     text: '我4鮪魚',
                     age: 18,
@@ -64,9 +97,17 @@
             },
             methods: {  // methods方法
                 addTask: function(){
-                    this.items.push(this.add_task_item);
-
-
+                    if(typeof this.add_task_item === 'undefined')return; // 沒輸入就不新增
+                    let temp  = {
+                        title:this.add_task_item,
+                        checked:'false'
+                    }
+                    this.items.push(temp);
+                },
+                switchActive: function(item){
+                    console.log('switchActive');
+                    item.checked = !item.checked;
+                    console.log(item);
                 }
             },
             mounted() {  // 生命週期
