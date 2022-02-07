@@ -38,8 +38,9 @@
             </li>
         </ul>
         <ul class="list-group">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
+            <li class="list-group-item" v-for="item in items">
+                {{ item }}
+            </li>
         </ul>
     </div>
     <script>
@@ -52,6 +53,7 @@
         const app = Vue.createApp({
             data() {  // 資料邏輯
                 return {
+                    items:['An item','A second item999'],
                     add_task_item,
                     text: '我4鮪魚',
                     age: 18,
@@ -62,9 +64,7 @@
             },
             methods: {  // methods方法
                 addTask: function(){
-                    console.log('addTask');
-                    console.log(this.add_task_item);
-                    `<li class="list-group-item">{this.add_task_item}</li>`
+                    this.items.push(this.add_task_item);
 
 
                 }
@@ -73,6 +73,9 @@
 
             },
         });
+        app.component('item-component', {
+            template: `<div>Hello Vue 3.x!</div>`,
+        })
         app.mount('#app');
 
     </script>
