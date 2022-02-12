@@ -38,26 +38,8 @@
             </li>
         </ul>
         <ul class="list-group">
-            <li class="list-group-item" v-for="item in items" v-if="visibility === '全部'">
+            <li class="list-group-item" v-for="item in filteredItems">
                 <div>
-                    修改
-                    <div @click="switchActive(item)">
-                        <input type="checkbox" :checked="item.checked === true">
-                        {{ item.title }}
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item" v-for="item in items" v-if="visibility === '進行中'">
-                <div v-if="item.checked === false">
-                    修改
-                    <div @click="switchActive(item)">
-                        <input type="checkbox" :checked="item.checked === true">
-                        {{ item.title }}
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item" v-for="item in items" v-if="visibility === '已完成'">
-                <div v-if="item.checked === true">
                     修改
                     <div @click="switchActive(item)">
                         <input type="checkbox" :checked="item.checked === true">
@@ -99,16 +81,27 @@
                 addTask: function(){
                     if(typeof this.add_task_item === 'undefined')return; // 沒輸入就不新增
                     let temp  = {
-                        title:this.add_task_item,
-                        checked:'false'
+                        title: this.add_task_item,
+                        checked: false
                     }
                     this.items.push(temp);
                 },
-                switchActive: function(item){
-                    console.log('switchActive');
-                    item.checked = !item.checked;
-                    console.log(item);
+                switchActive: ( item => item.checked = !item.checked ),
+            },
+            computed: {
+                filteredItems: function () {
+                    if( this.visibility === '全部' ){
+                        return this.items;
+
+                    }
+                    if( this.visibility === '進行中' ){
+                        return this.items.filter(item => item.checked === false)
+                    }
+                    if( this.visibility === '已完成' ){
+                        return this.items.filter(item => item.checked === true)
+                    }
                 }
+
             },
             mounted() {  // 生命週期
 
